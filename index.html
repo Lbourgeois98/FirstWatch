@@ -6,22 +6,8 @@
   <title>First Watch • Playing for Keeps — Agent Application</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <script>
-    async function handleDirectSubmit(e) {
-      e.preventDefault();
-      const form = e.target;
-      const data = Object.fromEntries(new FormData(form).entries());
-      document.getElementById("toast").classList.add("show");
-      await fetch("/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      form.reset();
-      setTimeout(()=>document.getElementById("toast").classList.remove("show"),2000);
-    }
-  </script>
 </head>
+
 <body>
   <canvas id="diamondRain"></canvas>
 
@@ -33,22 +19,32 @@
 
   <main class="container">
     <h3 class="section-title">Agent Application</h3>
-    <form id="agentForm" class="fw-form" onsubmit="handleDirectSubmit(event)">
+
+    <!-- GOOGLE FORM DIRECT SUBMISSION -->
+    <form id="agentForm" class="fw-form" 
+      method="POST"
+      action="https://docs.google.com/forms/d/e/1FAIpQLSfXZVxP_s_oin2LEWz0rACz5J4QYxcocY9t4F6DMXJ0JYnkbg/formResponse"
+      target="hidden_iframe"
+      onsubmit="submitted=true">
+
       <div class="grid">
         <label class="field"><span>Full Name *</span><input type="text" name="entry.159519533" required /></label>
         <label class="field"><span>Page Name *</span><input type="text" name="entry.1863483205" required /></label>
         <label class="field"><span>Include alternate method of contact (phone number, telegram @, etc) *</span><input type="text" name="entry.1917966011" required /></label>
         <label class="field"><span>Backup pages or profiles *</span><input type="text" name="entry.291531163" required /></label>
+
         <label class="field"><span>Role *</span>
           <select name="entry.736591377" required>
             <option>Own</option><option>Manage</option><option>Loader</option><option>Cashier</option>
           </select>
         </label>
+
         <label class="field"><span>Origin of Page *</span>
           <select name="entry.1830368573" required>
             <option>Created</option><option>Bought</option><option>Rented</option>
           </select>
         </label>
+
         <label class="field"><span>Do you manage any other pages? *</span><input type="text" name="entry.1413601976" required /></label>
         <label class="field"><span>How many months/years have you been in the online gaming business? *</span><input type="text" name="entry.1904262938" required /></label>
         <label class="field"><span>Number of Employees *</span><input type="text" name="entry.1894637220" required /></label>
@@ -75,7 +71,7 @@
       </div>
 
       <label class="field full"><span>Procedure for Cashout *</span><textarea name="entry.1153161096" rows="3" required></textarea></label>
-      <label class="field full"><span>What are the Bonuses and Rules for your Page*</span><textarea name="entry.24673167" rows="3" required></textarea></label>
+      <label class="field full"><span>What are the Bonuses and Rules for your Page *</span><textarea name="entry.24673167" rows="3" required></textarea></label>
       <label class="field full"><span>What platforms do you offer? *</span><textarea name="entry.1697639512" rows="3" required></textarea></label>
 
       <div class="grid">
@@ -89,20 +85,21 @@
         <label class="field"><span>Signature/Initials *</span><input type="text" name="entry.681774611" required /></label>
         <label class="field">
           <span>Date *</span>
-          <input
-            type="text"
-            id="dateInput"
-            name="entry.992448708"
-            placeholder="YYYY-MM-DD"
-            required
-            maxlength="10"
-            />
-          </label>
-
+          <input type="date" name="entry.992448708" required />
+        </label>
       </div>
 
       <button class="cta submit" type="submit">Send Application</button>
     </form>
+
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+    <script>
+      document.getElementById("agentForm").addEventListener("submit", () => {
+        setTimeout(() => alert("✅ Application submitted! Thank you."), 800);
+      });
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
   </main>
 
   <footer class="footer">
@@ -110,16 +107,5 @@
   </footer>
 
   <div id="toast" class="toast"><div class="toast-card">Submitting...</div></div>
-
-  <script>
-  const dateInput = document.getElementById("dateInput");
-  dateInput.addEventListener("input", (e) => {
-    let v = e.target.value.replace(/\D/g, "").slice(0, 8);
-    if (v.length >= 5) v = v.slice(0,4) + "-" + v.slice(4,6) + "-" + v.slice(6);
-    else if (v.length >= 3) v = v.slice(0,4) + "-" + v.slice(4);
-    e.target.value = v;
-  });
-</script>
-
 </body>
 </html>
