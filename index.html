@@ -4,43 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>First Watch • Playing for Keeps — Agent Application</title>
-  <meta name="theme-color" content="#ff2bd6" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <script>
+    async function handleDirectSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form).entries());
+      document.getElementById("toast").classList.add("show");
+      await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      form.reset();
+      setTimeout(()=>document.getElementById("toast").classList.remove("show"),2000);
+    }
+  </script>
 </head>
 <body>
   <canvas id="diamondRain"></canvas>
 
   <header class="hero">
-    <div class="header-overlay"></div>
     <img class="logo" src="assets/logo.png" alt="First Watch Logo" />
     <h1 class="neon-title">First Watch</h1>
     <h2 class="neon-sub">Playing for Keeps</h2>
   </header>
 
-  <main id="apply" class="container card neon-card">
+  <main class="container">
     <h3 class="section-title">Agent Application</h3>
-
-    <form id="agentForm" class="fw-form" action="/api/submit" method="POST" onsubmit="return handleDirectSubmit(event)">
+    <form id="agentForm" class="fw-form" onsubmit="handleDirectSubmit(event)">
       <div class="grid">
         <label class="field"><span>Full Name *</span><input type="text" name="entry.159519533" required /></label>
         <label class="field"><span>Page Name *</span><input type="text" name="entry.1863483205" required /></label>
-        <label class="field"><span>Include alternate method of contact (phone number, telegram @, etc) *</span><input type="text" name="entry.1917966011" required /></label>
-        <label class="field"><span>Backup Pages or Profiles*</span><input type="text" name="entry.291531163" required /></label>
-        <label class="field"><span>Role *</span><select name="entry.736591377" required><option>Own</option><option>Manage</option><option>Loader</option><option>Cashier</option></select></label>
-        <label class="field"><span>Origin of Page *</span><select name="entry.1830368573" required><option>Created</option><option>Bought</option><option>Rented</option></select></label>
+        <label class="field"><span>Alternate Contact *</span><input type="text" name="entry.1917966011" required /></label>
+        <label class="field"><span>Backup Pages *</span><input type="text" name="entry.291531163" required /></label>
+        <label class="field"><span>Role *</span>
+          <select name="entry.736591377" required>
+            <option>Own</option><option>Manage</option><option>Loader</option><option>Cashier</option>
+          </select>
+        </label>
+        <label class="field"><span>Origin of Page *</span>
+          <select name="entry.1830368573" required>
+            <option>Created</option><option>Bought</option><option>Rented</option>
+          </select>
+        </label>
         <label class="field"><span>Do you manage any other pages? *</span><input type="text" name="entry.1413601976" required /></label>
-        <label class="field"><span>How many months/years have you been in the online gaming business? *</span><input type="text" name="entry.1904262938" required /></label>
+        <label class="field"><span>Experience in Online Gaming *</span><input type="text" name="entry.1904262938" required /></label>
         <label class="field"><span>Number of Employees *</span><input type="text" name="entry.1894637220" required /></label>
 
-        <label class="field"><span>Do you need a Promotor? *</span>
-          <div class="radio-group"><label><input type="radio" name="entry.244492442" value="Yes" required /> Yes</label><label><input type="radio" name="entry.244492442" value="No" /> No</label></div>
-        </label>
+        <div class="field">
+          <span>Do you need a promotor? *</span>
+          <div class="radio-group">
+            <label><input type="radio" name="entry.244492442" value="Yes" required /><span>Yes</span></label>
+            <label><input type="radio" name="entry.244492442" value="No" /><span>No</span></label>
+          </div>
+        </div>
 
-        <label class="field"><span>Do your cashier/ loaders have M.O.P.s Access? *</span>
-          <div class="radio-group"><label><input type="radio" name="entry.1913696873" value="Yes" required /> Yes</label><label><input type="radio" name="entry.1913696873" value="No" /> No</label></div>
-        </label>
+        <div class="field">
+          <span>Do your cashier/loaders have M.O.P.s access? *</span>
+          <div class="radio-group">
+            <label><input type="radio" name="entry.1913696873" value="Yes" required /><span>Yes</span></label>
+            <label><input type="radio" name="entry.1913696873" value="No" /><span>No</span></label>
+          </div>
+        </div>
 
         <label class="field"><span>M.O.P.s and balances *</span><input type="text" name="entry.683289936" required /></label>
         <label class="field"><span>Business Hours *</span><input type="text" name="entry.2002959237" required /></label>
@@ -48,26 +75,22 @@
       </div>
 
       <label class="field full"><span>Procedure for Cashout *</span><textarea name="entry.1153161096" rows="3" required></textarea></label>
-      <label class="field full"><span>What are your bonuses and rules for your page? *</span><textarea name="entry.24673167" rows="3" required></textarea></label>
-      <label class="field full"><span>What platforms do you offer? *</span><textarea name="entry.1697639512" rows="3" required></textarea></label>
+      <label class="field full"><span>Bonuses and Rules *</span><textarea name="entry.24673167" rows="3" required></textarea></label>
+      <label class="field full"><span>Platforms Offered *</span><textarea name="entry.1697639512" rows="3" required></textarea></label>
 
       <div class="grid">
-        <label class="field"><span>Are you currently verified in any other groups? *</span><input type="text" name="entry.748506304" required /></label>
-        <label class="field"><span>Have you previously been verified in any other groups? *</span><input type="text" name="entry.1170944797" required /></label>
+        <label class="field"><span>Currently Verified? *</span><input type="text" name="entry.748506304" required /></label>
+        <label class="field"><span>Previously Verified? *</span><input type="text" name="entry.1170944797" required /></label>
       </div>
 
-      <label class="field full"><span>Have you ever been blacklisted? *</span><textarea name="entry.685969785" rows="3" required></textarea></label>
+      <label class="field full"><span>Blacklisted? *</span><textarea name="entry.685969785" rows="3" required></textarea></label>
+
       <div class="grid">
         <label class="field"><span>Signature/Initials *</span><input type="text" name="entry.681774611" required /></label>
-        <label class="field"><span>Date *</span>
-          <label class="field"><span>Date *</span>
-            <input type="text" name="entry.992448708" placeholder="YYYY-MM-DD" required pattern="\d{4}-\d{2}-\d{2}" />
-            </label>
-
-
+        <label class="field"><span>Date (YYYY-MM-DD) *</span><input type="text" name="entry.992448708" placeholder="2025-11-06" required pattern="\\d{4}-\\d{2}-\\d{2}" /></label>
       </div>
 
-      <button class="cta pulse submit" type="submit"><span class="glow-dot"></span>Send Application</button>
+      <button class="cta submit" type="submit">Send Application</button>
     </form>
   </main>
 
@@ -75,6 +98,6 @@
     <p>© <span id="year"></span> First Watch — Playing for Keeps</p>
   </footer>
 
-  <div id="toast" class="toast"><div class="toast-card"><strong>Submitting…</strong><span>Please hold for a moment.</span></div></div>
+  <div id="toast" class="toast"><div class="toast-card">Submitting...</div></div>
 </body>
 </html>
