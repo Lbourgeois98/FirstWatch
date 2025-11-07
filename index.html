@@ -26,6 +26,7 @@
       target="hidden_iframe"
       onsubmit="submitted=true">
 
+      <!-- all questions stacked -->
       <label class="field"><span>Full Name *</span><input type="text" name="entry.159519533" required /></label>
       <label class="field"><span>Page Name *</span><input type="text" name="entry.1863483205" required /></label>
       <label class="field"><span>Include alternate method of contact (phone number, telegram @, etc) *</span><input type="text" name="entry.1917966011" required /></label>
@@ -82,17 +83,25 @@
     </form>
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
-    <script>
-      document.getElementById("agentForm").addEventListener("submit", () => {
-        setTimeout(() => alert("✅ Application submitted! Thank you."), 800);
-      });
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
   </main>
 
   <footer class="footer">
     <p>© <span id="year"></span> First Watch — Playing for Keeps</p>
   </footer>
+
+  <!-- Toast message -->
+  <div id="toast" class="toast">✅ Application submitted successfully!</div>
+
+  <script>
+    const toast = document.getElementById("toast");
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.getElementById("agentForm").addEventListener("submit", () => {
+      setTimeout(() => {
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3500);
+      }, 800);
+    });
+  </script>
 </body>
 </html>
