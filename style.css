@@ -136,6 +136,28 @@ html, body {
   transform: translateY(-2px);
 }
 
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #4e008e, #ff2bd6);
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  box-shadow: 0 0 18px rgba(255, 43, 214, 0.6);
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 999;
+}
+.toast.show {
+  bottom: 25px;
+  opacity: 1;
+}
+
 /* FOOTER */
 .footer {
   text-align: center;
@@ -150,4 +172,5 @@ html, body {
   .neon-title { font-size: 1.8rem; }
   .container { width: 94%; padding: 0.8rem; }
   .fw-form { gap: 0.5rem; }
+  .toast { font-size: 0.8rem; padding: 0.7rem 1.2rem; }
 }
