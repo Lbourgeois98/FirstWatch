@@ -59,7 +59,12 @@
       <label class="field full"><span>Have you ever been blacklisted? *</span><textarea name="entry.685969785" rows="3" required></textarea></label>
       <div class="grid">
         <label class="field"><span>Signature/Initials *</span><input type="text" name="entry.681774611" required /></label>
-        <label class="field"><span>Date *</span><input type="date" name="entry.992448708" required /></label>
+        <label class="field"><span>Date *</span>
+          <label class="field"><span>Date *</span>
+            <input type="text" name="entry.992448708" placeholder="YYYY-MM-DD" required pattern="\d{4}-\d{2}-\d{2}" />
+            </label>
+
+
       </div>
 
       <button class="cta pulse submit" type="submit"><span class="glow-dot"></span>Send Application</button>
